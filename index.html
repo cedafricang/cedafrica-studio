@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CED Africa — AV Design Studio</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f7f5}
+    #loading{
+      position:fixed;inset:0;background:#f8f7f5;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+    }
+    #loading .logo{background:#D97706;color:#fff;font-weight:700;font-size:13px;padding:6px 14px;border-radius:6px;letter-spacing:.06em}
+    #loading .label{font-size:14px;color:#888}
+    #loading .spinner{width:24px;height:24px;border:3px solid #e5e4e0;border-top-color:#D97706;border-radius:50%;animation:spin .7s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <div class="logo">CED AFRICA</div>
+    <div class="spinner"></div>
+    <div class="label">Loading AV Design Studio…</div>
+  </div>
+  <div id="root"></div>
+
+  <!-- React 18 -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+
+
+  <!-- Babel standalone (transpiles JSX in browser) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Supabase credentials — injected by build.sh at deploy time -->
+  <script>
+    window.SUPABASE_URL = "%%SUPABASE_URL%%"
+    window.SUPABASE_KEY = "%%SUPABASE_KEY%%"
+  </script>
+
+  <!-- App -->
+  <script type="text/babel" src="./ced_studio_platform.jsx" data-presets="react"></script>
+
+  <!-- Mount -->
+  <script type="text/babel" data-presets="react">
+    const root = ReactDOM.createRoot(document.getElementById('root'))
+    root.render(React.createElement(CEDStudio))
+    document.getElementById('loading').style.display = 'none'
+  </script>
+  
+</body>
+</html>
